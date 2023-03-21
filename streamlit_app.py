@@ -1,6 +1,5 @@
 import sqlite3
 import streamlit as st
-import streamlit_authenticator as stauth
 import pandas as pd
 import base64
 
