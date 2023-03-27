@@ -22,17 +22,18 @@ if escola_logada:
     st.subheader(f'Estoque atual ({escola_logada})')
     estoque_df = merenda.calcular_estoque(conn, escola_logada)
     st.dataframe(estoque_df)
-
+    
+    if st.button('Sair'):
+        escola_logada = None
+        st.experimental_rerun()
+    
     form = st.form(key='registrar')
     produto = form.text_input('Produto')
     unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
     quantidade = form.number_input('Quantidade', min_value=0, step=1)
     procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
     form.form_submit_button('Registrar')
-    
-    if st.button('Sair'):
-        escola_logada = None
-        st.experimental_rerun()
+      
 
     if produto and quantidade and procedimento:
         merenda.registrar(conn, escola_logada, produto, unidade, quantidade, procedimento)
@@ -40,9 +41,7 @@ if escola_logada:
     st.subheader(f'Histórico de Registros ({escola_logada})')
     df = merenda.list_records(conn, escola_logada)
     st.dataframe(df)
-    
-
-    
+      
     if escola_logada == "SEDUC":
         st.subheader('Gerenciar Usuários')
 
