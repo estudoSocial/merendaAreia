@@ -70,30 +70,31 @@ if st.session_state.escola_logada:
 
         if produto and quantidade and procedimento:
             merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-
-            st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
-            df = merenda.list_records(conn, st.session_state.escola_logada)
             st.success("Registro adicionado com sucesso")
 
-        # Adicionando a funcionalidade de exclusão
-        for index, row in df.iterrows():
-            col1, col2, col3, col4 = st.beta_columns(4)
-            with col1:
-                st.write(row['produto'])
-            with col2:
-                st.write(row['quantidade'])
-            with col3:
-                st.write(row['procedimento'])
-            with col4:
-                if st.button(f"Excluir {row['id']}"):
-                    merenda.deletar_registro(conn, row['id'])
-                    # Atualize o estoque, se necessário
-                    st.success(f"Registro {row['id']} excluído com sucesso")
-                    df = merenda.list_records(conn, st.session_state.escola_logada)  # Atualize o DataFrame após excluir um registro
+        st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
+        df = merenda.list_records(conn, st.session_state.escola_logada)
+
+        if not df.empty:
+            # Adicionando a funcionalidade de exclusão
+            for index, row in df.iterrows():
+                col1, col2, col3, col4 = st.beta_columns(4)
+                with col1:
+                    st.write(row['produto'])
+                with col2:
+                    st.write(row['quantidade'])
+                with col3:
+                    st.write(row['procedimento'])
+                with col4:
+                    if st.button(f"Excluir {row['id']}"):
+                        merenda.deletar_registro(conn, row['id'])
+                        # Atualize o estoque, se necessário
+                        st.success(f"Registro {row['id']} excluído com sucesso")
+                        df = merenda.list_records(conn, st.session_state.escola_logada)  # Atualize o DataFrame após excluir um registro
+        else:
+            st.write("Nenhum registro encontrado.")
 
         st.dataframe(df)
-
-    
     
 
     if st.session_state.escola_logada == 'SEDUC':
