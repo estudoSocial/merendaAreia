@@ -40,20 +40,4 @@ def add_default_seduc_user(conn):
         conn.execute('INSERT INTO usuarios (usuario, senha, escola) VALUES (?, ?, ?)',
                      ("departamento.merenda", "arrozcomcarnenoprato", "SEDUC"))
         conn.commit()
-        
-def registrar_entrega_pendente(escola, produto, unidade, quantidade):
-    data = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
-    conn.execute('INSERT INTO entregas_pendentes (escola, data, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?, ?)',
-                 (escola, data, produto, unidade, quantidade, 'esperando entrega'))
-    conn.commit()
-
-def listar_entregas_pendentes(escola):
-    cursor = conn.execute('SELECT * FROM entregas_pendentes WHERE escola = ? AND status = ?', (escola, 'esperando entrega'))
-    data = cursor.fetchall()
-    df = pd.DataFrame(data, columns=['id', 'escola', 'data', 'produto', 'unidade', 'quantidade', 'status'])
-    return df
-
-def aceitar_entrega(id):
-    conn.execute('UPDATE entregas_pendentes SET status = ? WHERE id = ?', ('entregue', id))
-    conn.commit()
 
