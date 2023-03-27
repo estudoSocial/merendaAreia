@@ -47,7 +47,9 @@ if st.session_state.escola_logada:
   
     if st.session_state.escola_logada != 'SEDUC':
         st.subheader("Entregas pendentes")
-        entregas_df = merenda.listar_entregas_pendentes(st.session_state.escola_logada)
+        #entregas_df = merenda.listar_entregas_pendentes(st.session_state.escola_logada)
+        entregas_df = merenda.listar_entregas_pendentes(conn, st.session_state.escola_logada)
+
         for index, row in entregas_df.iterrows():
             st.write(f"{row['produto']} - {row['quantidade']} {row['unidade']}")
             if st.button(f"Aceitar entrega {row['id']}"):
