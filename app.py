@@ -27,7 +27,7 @@ if escola_logada:
     st.subheader('Adicionar Novo Registro')
     produto = form.text_input('Produto')
     unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
-    quantidade = form.number_input('Quantidade', min_value=0.0, step=1)
+    quantidade = form.number_input('Quantidade', min_value=0, step=1)
     procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
     form.form_submit_button('Registrar')
 
