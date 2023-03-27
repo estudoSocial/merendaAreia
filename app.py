@@ -66,7 +66,7 @@ if escola_logada:
             "Escola Ver. Nelson Carneiro",
             "SEDUC"
             ])
-            user_management_form.form_submit_button('Executar')
+        user_management_form.form_submit_button('Executar')
             
         if user_action and target_user:
             if user_action == 'Criar':
