@@ -7,6 +7,7 @@ import merenda
 conn = sqlite3.connect('merenda.db')
 database.create_tables(conn)
 database.add_default_seduc_user(conn)
+escola_logada = None
 
 if not escola_logada:
     st.subheader("Login")
