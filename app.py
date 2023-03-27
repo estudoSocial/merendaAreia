@@ -72,12 +72,9 @@ if st.session_state.escola_logada:
         if produto and quantidade and procedimento:
             merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
 
-        st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
-        df = merenda.list_records(conn, st.session_state.escola_logada)
-        st.success("Registro adicionado com sucesso")
-
-        st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
-        df = merenda.list_records(conn, st.session_state.escola_logada)
+            st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
+            df = merenda.list_records(conn, st.session_state.escola_logada)
+            st.success("Registro adicionado com sucesso")
         st.dataframe(df)
 
 if st.session_state.escola_logada == 'SEDUC':
