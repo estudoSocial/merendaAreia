@@ -74,11 +74,11 @@ if st.session_state.escola_logada:
         df = merenda.list_records(conn, st.session_state.escola_logada)
         st.success("Registro adicionado com sucesso")
 
-st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
-df = merenda.list_records(conn, st.session_state.escola_logada)
-st.dataframe(df)
-df = merenda.list_records(conn, st.session_state.escola_logada)
-st.dataframe(df)
+        st.subheader(f'Histórico de Registros ({st.session_state.escola_logada})')
+        df = merenda.list_records(conn, st.session_state.escola_logada)
+        st.dataframe(df)
+        df = merenda.list_records(conn, st.session_state.escola_logada)
+        st.dataframe(df)
 
 if st.session_state.escola_logada == 'SEDUC':
     st.subheader("Enviar produtos para a escola")
