@@ -58,16 +58,11 @@ def registrar_entrega_pendente(escola, produto, unidade, quantidade):
     conn = sqlite3.connect('merenda.db')
 
     try:
-        merenda.registrar_entrega_pendente(escola_destino, produto, unidade, quantidade)
-        st.success(f'Entrega pendente registrada para {escola_destino}!')
-    except:
-        st.error('Ocorreu um erro ao registrar a entrega pendente. Por favor, tente novamente mais tarde.')
+        registrar_entrega_pendente(escola, produto, unidade, quantidade)
+        st.success(f'Entrega pendente registrada para {escola}!')
+    except Exception as e:
+        st.error(f'Ocorreu um erro ao registrar a entrega pendente: {str(e)}. Por favor, tente novamente mais tarde.')
 
     conn.close()
-
-    status = 'aguardando'
-    conn.execute('INSERT INTO entregas_pendentes (escola, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?)',
-                 (escola, produto, unidade, quantidade, status))
-    conn.commit()
     
 
