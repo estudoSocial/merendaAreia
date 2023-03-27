@@ -9,16 +9,20 @@ database.create_tables(conn)
 database.add_default_seduc_user(conn)
 escola_logada = None
 
-if not escola_logada:
+# Verifique se 'escola_logada' existe no session_state, caso contrário, defina como None
+if "escola_logada" not in st.session_state:
+    st.session_state.escola_logada = None
+
+if not st.session_state.escola_logada:
     st.subheader("Login")
     usuario = st.text_input("Nome de usuário")
     senha = st.text_input("Senha", type="password")
     login_button = st.button("Entrar")
 
     if login_button:
-        escola_logada = authentication.login(conn, usuario, senha)
+        st.session_state.escola_logada = authentication.login(conn, usuario, senha)
 
-if escola_logada:
+if st.session_state.escola_logada:
 
     st.subheader(f'Estoque atual ({escola_logada})')
     estoque_df = merenda.calcular_estoque(conn, escola_logada)
@@ -94,5 +98,5 @@ if escola_logada:
                 st.error('Nome de usuário ou senha incorretos')
     
     if st.button('Sair', key='sair_button'):
-        escola_logada = None
+        st.session_state.escola_logada = None
         st.experimental_rerun()
