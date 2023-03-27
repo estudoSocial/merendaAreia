@@ -5,6 +5,7 @@ def registrar(conn, escola, produto, unidade, quantidade, procedimento):
     conn.execute('INSERT INTO merenda (escola, data, produto, unidade, quantidade, procedimento) VALUES (?, ?, ?, ?, ?, ?)',
                 (escola, data, produto, unidade, quantidade, procedimento))
     conn.commit()
+    atualizar_estoque(conn, escola, produto, unidade, quantidade)
 
 def list_records(conn, escola):
     cursor = conn.execute('SELECT * FROM merenda WHERE escola=?', (escola,))
@@ -42,17 +43,23 @@ def aceitar_entrega(id):
         conn.commit()
 
     
-def atualizar_estoque(escola, produto, unidade, quantidade):
+def atualizar_estoque(conn, escola, produto, unidade, quantidade):
+    # Verificar se o produto já está no estoque
     cursor = conn.execute('SELECT quantidade FROM estoque WHERE escola = ? AND produto = ? AND unidade = ?', (escola, produto, unidade))
     data = cursor.fetchone()
-    
-    if data:
+
+    if data is not None:
+        # Atualizar a quantidade do produto no estoque
         nova_quantidade = data[0] + quantidade
         conn.execute('UPDATE estoque SET quantidade = ? WHERE escola = ? AND produto = ? AND unidade = ?', (nova_quantidade, escola, produto, unidade))
     else:
+        # Adicionar o produto ao estoque
         conn.execute('INSERT INTO estoque (escola, produto, unidade, quantidade) VALUES (?, ?, ?, ?)', (escola, produto, unidade, quantidade))
-    
+
+    # Confirmar as alterações e fechar o cursor
     conn.commit()
+    cursor.close()
+
 
 def registrar_entrega_pendente(escola, produto, unidade, quantidade):
     db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'merenda.db')
