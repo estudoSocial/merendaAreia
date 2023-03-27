@@ -23,26 +23,35 @@ if not st.session_state.escola_logada:
         st.session_state.escola_logada = authentication.login(conn, usuario, senha)
 
 if st.session_state.escola_logada:
-
-    st.subheader(f'Estoque atual ({escola_logada})')
-    estoque_df = merenda.calcular_estoque(conn, escola_logada)
-    st.dataframe(estoque_df)
     
-    st.subheader('Adicionar Novo Registro')
-    form = st.form(key='registrar')
-    produto = form.text_input('Produto')
-    unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
-    quantidade = form.number_input('Quantidade', min_value=0, step=1)
-    procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
-    form.form_submit_button('Registrar')
+    if st.session_state.escola_logada != 'SEDUC':
+        st.subheader("Entregas pendentes")
+        entregas_df = listar_entregas_pendentes(st.session_state.escola_logada)
+        for index, row in entregas_df.iterrows():
+            st.write(f"{row['produto']} - {row['quantidade']} {row['unidade']}")
+            if st.button(f"Aceitar entrega {row['id']}"):
+                aceitar_entrega(row['id'])
+                st.success("Entrega aceita")
+
+        st.subheader(f'Estoque atual ({escola_logada})')
+        estoque_df = merenda.calcular_estoque(conn, escola_logada)
+        st.dataframe(estoque_df)
+
+        st.subheader('Adicionar Novo Registro')
+        form = st.form(key='registrar')
+        produto = form.text_input('Produto')
+        unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
+        quantidade = form.number_input('Quantidade', min_value=0, step=1)
+        procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
+        form.form_submit_button('Registrar')
 
 
-    if produto and quantidade and procedimento:
-        merenda.registrar(conn, escola_logada, produto, unidade, quantidade, procedimento)
+        if produto and quantidade and procedimento:
+            merenda.registrar(conn, escola_logada, produto, unidade, quantidade, procedimento)
 
-    st.subheader(f'Histórico de Registros ({escola_logada})')
-    df = merenda.list_records(conn, escola_logada)
-    st.dataframe(df)
+        st.subheader(f'Histórico de Registros ({escola_logada})')
+        df = merenda.list_records(conn, escola_logada)
+        st.dataframe(df)
     
     if st.session_state.escola_logada == 'SEDUC':
         st.subheader("Enviar produtos para a escola")
