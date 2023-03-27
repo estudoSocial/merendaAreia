@@ -80,7 +80,6 @@ if st.session_state.escola_logada:
 
 if st.session_state.escola_logada == 'SEDUC':
     st.subheader("Enviar produtos para a escola")
-    lista_de_escolas.remove('SEDUC')
     escola_destino = st.selectbox("Escola", options=lista_de_escolas) # use a lista de escolas definida anteriormente
     produto = st.text_input("Produto")
     unidade = st.selectbox("Unidade de medida", options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
