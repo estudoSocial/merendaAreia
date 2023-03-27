@@ -94,7 +94,7 @@ if st.session_state.escola_logada:
                         # Atualize o estoque, se necessário
                         st.success(f"Registro {row['id']} excluído com sucesso")
                         df = merenda.list_records(conn, st.session_state.escola_logada)  # Atualize o DataFrame após excluir um registro
-                        st.experimental_app
+                        st.experimental_rerun()
         else:
             st.write("Nenhum registro encontrado.")
 
