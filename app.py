@@ -24,4 +24,14 @@ if escola_logada:
 
     form = st.form(key='registrar')
     produto = form.text_input('Produto')
-    unidade = form.selectbox('Unidade
+    unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
+    quantidade = form.number_input('Quantidade', min_value=0, step=1)
+    procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
+    form.form_submit_button('Registrar')
+
+if produto and quantidade and procedimento:
+    merenda.registrar(conn, escola_logada, produto, unidade, quantidade, procedimento)
+
+st.subheader(f'Histórico de Registros ({escola_logada})')
+df = merenda.list_records(conn, escola_logada)
+st.dataframe(df)
