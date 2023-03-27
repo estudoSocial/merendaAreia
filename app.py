@@ -36,7 +36,11 @@ if escola_logada:
     st.subheader(f'Histórico de Registros ({escola_logada})')
     df = merenda.list_records(conn, escola_logada)
     st.dataframe(df)
-
+    
+    if st.button('Sair'):
+        escola_logada = None
+        st.experimental_rerun()
+    
     if escola_logada == "SEDUC":
         st.subheader('Gerenciar Usuários')
 
@@ -89,8 +93,5 @@ if escola_logada:
                 st.dataframe(users_df)
             else:
                 st.error('Nome de usuário ou senha incorretos'
-
-    if st.button('Sair'):
-        escola_logada = None
-        st.experimental_rerun()
+    
 
