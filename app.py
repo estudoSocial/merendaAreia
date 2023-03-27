@@ -24,9 +24,10 @@ if escola_logada:
     estoque_df = merenda.calcular_estoque(conn, escola_logada)
     st.dataframe(estoque_df)
     form = st.form(key='registrar')
+    st.subheader('Adicionar Novo Registro')
     produto = form.text_input('Produto')
     unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
-    quantidade = form.number_input('Quantidade', min_value=0, step=1)
+    quantidade = form.number_input('Quantidade', min_value=0.0, step=1)
     procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
     form.form_submit_button('Registrar')
 
