@@ -31,8 +31,8 @@ def create_tables(conn):
         unidade TEXT,
         quantidade REAL,
         status TEXT
-    )
-''')
+        )
+    ''')
 
 def add_default_seduc_user(conn):
     cursor = conn.execute('SELECT * FROM usuarios WHERE usuario="departamento.merenda"')
