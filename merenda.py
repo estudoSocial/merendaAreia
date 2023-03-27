@@ -56,22 +56,17 @@ def aceitar_entrega(id):
         conn.commit()
 
     
-def atualizar_estoque(conn, escola, produto, unidade, quantidade):
-    # Verificar se o produto já está no estoque
+def atualizar_estoque(conn, escola, produto, unidade, quantidade_ajustada):
     cursor = conn.execute('SELECT quantidade FROM estoque WHERE escola = ? AND produto = ? AND unidade = ?', (escola, produto, unidade))
-    data = cursor.fetchone()
+    resultado = cursor.fetchone()
 
-    if data is not None:
-        # Atualizar a quantidade do produto no estoque
-        nova_quantidade = data[0] + quantidade
+    if resultado:
+        nova_quantidade = resultado[0] + quantidade_ajustada
         conn.execute('UPDATE estoque SET quantidade = ? WHERE escola = ? AND produto = ? AND unidade = ?', (nova_quantidade, escola, produto, unidade))
     else:
-        # Adicionar o produto ao estoque
-        conn.execute('INSERT INTO estoque (escola, produto, unidade, quantidade) VALUES (?, ?, ?, ?)', (escola, produto, unidade, quantidade))
+        conn.execute('INSERT INTO estoque (escola, produto, unidade, quantidade) VALUES (?, ?, ?, ?)', (escola, produto, unidade, quantidade_ajustada))
 
-    # Confirmar as alterações e fechar o cursor
     conn.commit()
-    cursor.close()
 
 
 def registrar_entrega_pendente(escola, produto, unidade, quantidade):
@@ -84,5 +79,7 @@ def registrar_entrega_pendente(escola, produto, unidade, quantidade):
     conn.commit()
 
     conn.close()  # Adicione esta linha para fechar a conexão
+    
+
 
 
