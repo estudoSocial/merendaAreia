@@ -25,7 +25,7 @@ def registrar_entrega_pendente(escola, produto, unidade, quantidade):
                  (escola, data, produto, unidade, quantidade, 'esperando entrega'))
     conn.commit()
 
-def listar_entregas_pendentes(escola):
+def listar_entregas_pendentes(conn, escola):
     cursor = conn.execute('SELECT * FROM entregas_pendentes WHERE escola = ? AND status = ?', (escola, 'esperando entrega'))
     data = cursor.fetchall()
     df = pd.DataFrame(data, columns=['id', 'escola', 'data', 'produto', 'unidade', 'quantidade', 'status'])
