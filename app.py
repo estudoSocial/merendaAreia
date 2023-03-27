@@ -95,4 +95,6 @@ if escola_logada:
             else:
                 st.error('Nome de usuário ou senha incorretos')
     
-
+    if st.button('Sair'):
+        escola_logada = None
+        st.experimental_rerun()
