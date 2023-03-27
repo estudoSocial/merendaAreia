@@ -33,6 +33,11 @@ def registrar_entrega_pendente(escola, produto, unidade, quantidade):
     conn.execute('INSERT INTO entregas_pendentes (escola, data, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?, ?)',
                  (escola, data, produto, unidade, quantidade, 'esperando entrega'))
     conn.commit()
+    
+def deletar_registro(conn, id):
+    conn.execute('DELETE FROM merenda WHERE id = ?', (id,))
+    conn.commit()
+
 
 def listar_entregas_pendentes(conn, escola):
     cursor = conn.execute('SELECT * FROM entregas_pendentes WHERE escola = ? AND status = ?', (escola, 'esperando entrega'))
