@@ -25,12 +25,11 @@ def create_tables(conn):
     conn.execute('''
     CREATE TABLE IF NOT EXISTS entregas_pendentes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        escola TEXT,
-        data TEXT,
-        produto TEXT,
-        unidade TEXT,
-        quantidade REAL,
-        status TEXT
+        escola TEXT NOT NULL,
+        produto TEXT NOT NULL,
+        unidade TEXT NOT NULL,
+        quantidade INTEGER NOT NULL,
+        status TEXT NOT NULL
         )
     ''')
 
