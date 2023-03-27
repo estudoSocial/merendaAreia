@@ -45,7 +45,8 @@ if st.session_state.escola_logada:
     ]
 
   
-    if st.session_state.escola_logada != 'SEDUC':
+   
+if st.session_state.escola_logada != 'SEDUC':
     st.subheader("Entregas pendentes")
     entregas_df = merenda.listar_entregas_pendentes(conn, st.session_state.escola_logada)
 
@@ -91,6 +92,9 @@ if st.session_state.escola_logada:
                 df = merenda.list_records(conn, st.session_state.escola_logada)  # Atualize o DataFrame após excluir um registro
 
     st.dataframe(df)
+
+    
+    
 
 if st.session_state.escola_logada == 'SEDUC':
     st.subheader("Enviar produtos para a escola")
