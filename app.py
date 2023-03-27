@@ -44,7 +44,18 @@ if st.session_state.escola_logada:
     df = merenda.list_records(conn, escola_logada)
     st.dataframe(df)
     
-    if escola_logada == "SEDUC":
+    if st.session_state.escola_logada == 'SEDUC':
+        st.subheader("Enviar produtos para a escola")
+        escola_destino = st.selectbox("Escola", options=lista_de_escolas) # use a lista de escolas definida anteriormente
+        produto = st.text_input("Produto")
+        unidade = st.selectbox("Unidade de medida", options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
+        quantidade = st.number_input("Quantidade", min_value=0, step=1)
+        enviar_button = st.button("Enviar")
+
+        if enviar_button and produto and quantidade:
+            registrar_entrega_pendente(escola_destino, produto, unidade, quantidade)
+            st.success("Produto enviado para a escola")
+
         st.subheader('Gerenciar Usuários')
 
         user_management_form = st.form(key='user_management')
