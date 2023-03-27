@@ -6,10 +6,10 @@ def registrar(conn, escola, produto, unidade, quantidade, procedimento):
                 (escola, data, produto, unidade, quantidade, procedimento))
     
     # Ajustar a quantidade com base no procedimento (entrada ou saída)
-    quantidade_ajustada = quantidade if procedimento == 'entrada' else -quantidade
+    # quantidade_ajustada = quantidade if procedimento == 'entrada' else -quantidade
     
     # Atualizar o estoque
-    atualizar_estoque(conn, escola, produto, unidade, quantidade_ajustada)
+    # atualizar_estoque(conn, escola, produto, unidade, quantidade_ajustada)
     
     # Confirmar as alterações
     conn.commit()
