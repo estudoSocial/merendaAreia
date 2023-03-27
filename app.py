@@ -19,14 +19,14 @@ login_form.form_submit_button('Entrar')
 escola_logada = authentication.login(conn, usuario, senha)
 
 if escola_logada:
-    st.subheader(f'Estoque atual ({escola_logada})')
-    estoque_df = merenda.calcular_estoque(conn, escola_logada)
-    st.dataframe(estoque_df)
     
     if st.button('Sair'):
         escola_logada = None
         st.experimental_rerun()
-    
+        
+    st.subheader(f'Estoque atual ({escola_logada})')
+    estoque_df = merenda.calcular_estoque(conn, escola_logada)
+    st.dataframe(estoque_df)
     form = st.form(key='registrar')
     produto = form.text_input('Produto')
     unidade = form.selectbox('Unidadede medida', options=['Kg', 'L', 'Dz', 'Und', 'Cx'])
