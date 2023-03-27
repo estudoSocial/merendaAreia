@@ -4,8 +4,16 @@ def registrar(conn, escola, produto, unidade, quantidade, procedimento):
     data = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
     conn.execute('INSERT INTO merenda (escola, data, produto, unidade, quantidade, procedimento) VALUES (?, ?, ?, ?, ?, ?)',
                 (escola, data, produto, unidade, quantidade, procedimento))
+    
+    # Ajustar a quantidade com base no procedimento (entrada ou saída)
+    quantidade_ajustada = quantidade if procedimento == 'entrada' else -quantidade
+    
+    # Atualizar o estoque
+    atualizar_estoque(conn, escola, produto, unidade, quantidade_ajustada)
+    
+    # Confirmar as alterações
     conn.commit()
-    atualizar_estoque(conn, escola, produto, unidade, quantidade)
+
 
 def list_records(conn, escola):
     cursor = conn.execute('SELECT * FROM merenda WHERE escola=?', (escola,))
