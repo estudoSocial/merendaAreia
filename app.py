@@ -87,7 +87,7 @@ if st.session_state.escola_logada == 'SEDUC':
     enviar_button = st.button("Enviar")
 
     if enviar_button and produto and quantidade:
-        merenda.registrar_entrega_pendente(conn, escola_destino, produto, unidade, quantidade)
+        merenda.registrar_entrega_pendente(escola_destino, produto, unidade, quantidade)
         st.success("Produto enviado para a escola")
 
     st.subheader('Gerenciar Usuários')
