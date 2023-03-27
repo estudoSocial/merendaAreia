@@ -21,3 +21,10 @@ def create_tables(conn):
             escola TEXT
         )
     ''')
+
+def add_default_seduc_user(conn):
+    cursor = conn.execute('SELECT * FROM usuarios WHERE usuario="departamento.merenda"')
+    if cursor.fetchone() is None:
+        conn.execute('INSERT INTO usuarios (usuario, senha, escola) VALUES (?, ?, ?)',
+                     ("departamento.merenda", "arrozcomcarnenoprato", "SEDUC"))
+        conn.commit()
