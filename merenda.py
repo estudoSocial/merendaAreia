@@ -55,14 +55,13 @@ def atualizar_estoque(escola, produto, unidade, quantidade):
     conn.commit()
 
 def registrar_entrega_pendente(escola, produto, unidade, quantidade):
-    conn = sqlite3.connect('merenda.db')
+    conn = sqlite3.connect('merenda.db')  # Adicione esta linha para conectar ao banco de dados
 
-    try:
-        registrar_entrega_pendente(escola, produto, unidade, quantidade)
-        st.success(f'Entrega pendente registrada para {escola}!')
-    except Exception as e:
-        st.error(f'Ocorreu um erro ao registrar a entrega pendente: {str(e)}. Por favor, tente novamente mais tarde.')
+    data = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+    conn.execute('INSERT INTO entregas_pendentes (escola, data, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?, ?)',
+                 (escola, data, produto, unidade, quantidade, 'esperando entrega'))
+    conn.commit()
 
-    conn.close()
-    
+    conn.close()  # Adicione esta linha para fechar a conexão
+
 
