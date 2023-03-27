@@ -92,6 +92,6 @@ if escola_logada:
                 users_df = authentication.list_users(conn)
                 st.dataframe(users_df)
             else:
-                st.error('Nome de usuário ou senha incorretos'
+                st.error('Nome de usuário ou senha incorretos')
     
 
