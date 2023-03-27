@@ -55,7 +55,8 @@ def atualizar_estoque(escola, produto, unidade, quantidade):
     conn.commit()
 
 def registrar_entrega_pendente(escola, produto, unidade, quantidade):
-    conn = sqlite3.connect('merenda.db')  # Adicione esta linha para conectar ao banco de dados
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'merenda.db')
+    conn = sqlite3.connect(db_path)
 
     data = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
     conn.execute('INSERT INTO entregas_pendentes (escola, data, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?, ?)',
