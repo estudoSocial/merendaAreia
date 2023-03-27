@@ -3,8 +3,6 @@ import streamlit as st
 import database
 import authentication
 import merenda
-from streamlit.script_runner import RerunException
-from streamlit.script_request_queue import RerunData
 
 def rerun_app():
     raise RerunException(RerunData(widget_state=None))
@@ -96,7 +94,7 @@ if st.session_state.escola_logada:
                         # Atualize o estoque, se necessário
                         st.success(f"Registro {row['id']} excluído com sucesso")
                         df = merenda.list_records(conn, st.session_state.escola_logada)  # Atualize o DataFrame após excluir um registro
-                        rerun_app
+                        st.experimental_app
         else:
             st.write("Nenhum registro encontrado.")
 
