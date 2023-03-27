@@ -37,6 +37,10 @@ if escola_logada:
     df = merenda.list_records(conn, escola_logada)
     st.dataframe(df)
     
+    if st.button('Sair'):
+        escola_logada = None
+        st.experimental_rerun()
+    
     if escola_logada == "SEDUC":
         st.subheader('Gerenciar Usuários')
 
