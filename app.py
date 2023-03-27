@@ -23,7 +23,28 @@ if not st.session_state.escola_logada:
         st.session_state.escola_logada = authentication.login(conn, usuario, senha)
 
 if st.session_state.escola_logada:
-    
+    lista_de_escolas = [
+    "Creche André Ricardo Perazzo da Costa",
+    "Creche Corina Barreto de Brito Lira",
+    "Creche Dona Dina",
+    "Creche Ephigênio Barbosa",
+    "Creche Ezilda Milanez",
+    "Creche José Alves do Nascimento",
+    "Escola Abel Barbosa da Silva",
+    "Escola Dr. José Inácio de Miranda Pereira",
+    "Escola João César",
+    "Escola José Lins Sobrinho",
+    "Escola José Rodrigues",
+    "Escola Júlia Verônica dos Santos Leal",
+    "Escola Madre Trautlinde",
+    "Escola Maria Emília Maracajá",
+    "Escola Nenen Silva",
+    "Escola Pedro Honório",
+    "Escola Lúcia Giovanna",
+    "Escola Ver. Nelson Carneiro"
+    ]
+
+  
     if st.session_state.escola_logada != 'SEDUC':
         st.subheader("Entregas pendentes")
         entregas_df = listar_entregas_pendentes(st.session_state.escola_logada)
