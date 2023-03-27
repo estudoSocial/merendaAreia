@@ -29,6 +29,10 @@ if escola_logada:
     quantidade = form.number_input('Quantidade', min_value=0, step=1)
     procedimento = form.selectbox('Procedimento', options=['Entrada', 'Saída'])
     form.form_submit_button('Registrar')
+    
+    if st.button('Sair'):
+        escola_logada = None
+        st.experimental_rerun()
 
     if produto and quantidade and procedimento:
         merenda.registrar(conn, escola_logada, produto, unidade, quantidade, procedimento)
@@ -37,9 +41,7 @@ if escola_logada:
     df = merenda.list_records(conn, escola_logada)
     st.dataframe(df)
     
-    if st.button('Sair'):
-        escola_logada = None
-        st.experimental_rerun()
+
     
     if escola_logada == "SEDUC":
         st.subheader('Gerenciar Usuários')
