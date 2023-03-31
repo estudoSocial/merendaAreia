@@ -24,13 +24,13 @@ def create_tables(conn):
     
     conn.execute('''
     CREATE TABLE IF NOT EXISTS entregas_pendentes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    escola TEXT NOT NULL,
-    produto TEXT NOT NULL,
-    unidade TEXT NOT NULL,
-    quantidade INTEGER NOT NULL,
-    status TEXT NOT NULL
-        );
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        escola TEXT NOT NULL,
+        produto TEXT NOT NULL,
+        unidade TEXT NOT NULL,
+        quantidade INTEGER NOT NULL,
+        status TEXT NOT NULL
+        )
     ''')
 
 def add_default_seduc_user(conn):
