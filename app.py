@@ -76,15 +76,19 @@ if st.session_state.escola_logada:
             quantidade = form.number_input('Quantidade', min_value=0.0, step=1.0)
             form_submit_record = form.form_submit_button('Registrar')
 
-            #if form_submit_record:
-            if produto and quantidade and procedimento:
-                if procedimento == 'Saída':
-                    saldo_estoque = merenda.verificar_estoque(conn, st.session_state.escola_logada, produto)
-                    if saldo_estoque < quantidade:
-                        st.error('Saldo insuficiente no estoque')
+            if form_submit_record:
+                if produto and quantidade and procedimento:
+                    if procedimento == 'Saída':
+                        saldo_estoque = merenda.verificar_estoque(conn, st.session_state.escola_logada, produto)
+                        if saldo_estoque < quantidade:
+                            st.error('Saldo insuficiente no estoque')
+                        else:
+                            merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
+                            estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
+                            st.success("Registro adicionado com sucesso")
+                            st.experimental_rerun()  # Adicione esta linha
                     else:
                         merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                        merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)
                         estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                         st.success("Registro adicionado com sucesso")
                         st.experimental_rerun()  # Adicione esta linha
@@ -94,12 +98,6 @@ if st.session_state.escola_logada:
                     estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                     st.success("Registro adicionado com sucesso")
                     st.experimental_rerun()  # Adicione esta linha
-            else:
-                merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)
-                estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
-                st.success("Registro adicionado com sucesso")
-                st.experimental_rerun()  # Adicione esta linha
 
         with st.expander(f'Deletar Registros da {st.session_state.escola_logada}'):
             df = merenda.list_records(conn, st.session_state.escola_logada)
