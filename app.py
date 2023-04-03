@@ -102,11 +102,6 @@ if st.session_state.escola_logada:
         with st.expander(f'Deletar Registros da {st.session_state.escola_logada}'):
             df = merenda.list_records(conn, st.session_state.escola_logada)
 
-            # No arquivo do Streamlit, após importar o módulo merenda
-            if st.button("Apagar 'TODO' o histórico!"):
-                merenda.apagar_historico(conn, st.session_state.escola_logada)
-                st.success("O histórico da escola foi apagado.")
-
             if not df.empty:
                 # Adicionando a funcionalidade de exclusão
                 delete_form = st.form(key='delete_form', clear_on_submit=True)
@@ -126,6 +121,11 @@ if st.session_state.escola_logada:
 
         with st.expander('Histórico de Registros de Entrada e Saída'):
             st.dataframe(df)
+
+            # No arquivo do Streamlit, após importar o módulo merenda
+            if st.button("APAGAR 'TODO' O HISTÓRICO! PENSE BEM ANTES DE USAR! DEIXAI TODA A ESPERANÇA ANTES DE CLICAR!"):
+                merenda.apagar_historico(conn, st.session_state.escola_logada)
+                st.success("O histórico da escola foi apagado! Não pensei que você iria ter coragem.")
 
         with st.expander(f'Estoque atual ({st.session_state.escola_logada})'):
             estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
@@ -179,7 +179,6 @@ if st.session_state.escola_logada:
         with st.expander('Clique aqui para ver o banco de dados de usuários'):
             users_df = authentication.list_users(conn)
             st.dataframe(users_df)
-
 
         with st.expander('Clique aqui para baixar uma cópia do banco de dados dos registros de merenda'):
             add_backup_functionality(st)
