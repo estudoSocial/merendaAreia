@@ -32,6 +32,6 @@ def add_backup_functionality(streamlit):
         streamlit.subheader('Backup e restauração do banco de dados')
         streamlit.markdown(download_db_file(), unsafe_allow_html=True)
         backup_file = streamlit.file_uploader('Faça o upload de um arquivo de backup para restaurar', type='db')
-        if backup_file is not None:
-            restore_backup(backup_file.name)
-            streamlit.success(f'O arquivo {backup_file.name} foi restaurado com sucesso')
+        #if backup_file is not None:
+        #    restore_backup(backup_file.name)
+        #    streamlit.success(f'O arquivo {backup_file.name} foi restaurado com sucesso')
