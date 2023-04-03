@@ -181,9 +181,6 @@ if st.session_state.escola_logada:
         with st.expander('Clique aqui para fazer ou restaura o banco de dados dos registros de merenda'):
             add_backup_functionality(st)
 
-
-
-
 with st.expander('Deseja deslogar?'):
     if st.button('Clique aqui para sair.', key='sair_button'):
         st.session_state.escola_logada = None
