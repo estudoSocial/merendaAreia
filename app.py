@@ -85,14 +85,19 @@ if st.session_state.escola_logada:
                         saldo_estoque = merenda.verificar_estoque(conn, st.session_state.escola_logada, produto)
                         if saldo_estoque < quantidade:
                             st.error('Saldo insuficiente no estoque')
+                        else:
+                            merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
+                            merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
+                            estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
+                            st.success("Registro adicionado com sucesso")
                     else:
                         merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                        # Atualizar o estoque
+                        merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
                         estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                         st.success("Registro adicionado com sucesso")
                 else:
                     merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                    # Atualizar o estoque
+                    merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
                     estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                     st.success("Registro adicionado com sucesso")
 
