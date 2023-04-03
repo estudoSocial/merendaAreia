@@ -44,7 +44,7 @@ def verificar_estoque(conn, escola, produto):
 def atualizar_estoque(conn, escola, produto, procedimento, quantidade):
     cursor = conn.cursor()
     # Verificar a quantidade atual no estoque
-    cursor.execute("SELECT quantidade FROM estoque WHERE escola=? AND produto=?", (escola, produto))
+    cursor.execute("SELECT quantidade FROM merenda WHERE escola=? AND produto=?", (escola, produto))
     resultado = cursor.fetchone()
     if resultado:
         estoque_atual = resultado[0]

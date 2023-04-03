@@ -7,9 +7,6 @@ import pandas as pd
 import os
 from backup import add_backup_functionality
 
-#def rerun_app():
-#    raise RerunException(RerunData(widget_state=None))
-
 conn = sqlite3.connect('merenda.db')
 
 # Inicializar a variável de estado do procedimento selecionado, se ainda não existir
