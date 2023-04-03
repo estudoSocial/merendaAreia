@@ -178,7 +178,7 @@ if st.session_state.escola_logada:
             st.dataframe(users_df)
 
 
-        with st.expander('Clique aqui para fazer ou restaura o banco de dados dos registros de merenda'):
+        with st.expander('Clique aqui para baixar uma cópia do banco de dados dos registros de merenda'):
             add_backup_functionality(st)
 
 with st.expander('Deseja deslogar?'):
