@@ -57,7 +57,7 @@ if st.session_state.escola_logada:
     ]
 
     if st.session_state.escola_logada != 'SEDUC':
-        st.title('Sistema de Gestão de Merenda de Areia - PB')
+        st.title('Sistema de Registros de Merenda de Areia - PB')
         st.subheader(f'{st.session_state.escola_logada}')
         with st.expander(f"Entregas pendentes para {st.session_state.escola_logada}"):
             entregas_df = merenda.listar_entregas_pendentes(conn, st.session_state.escola_logada)
