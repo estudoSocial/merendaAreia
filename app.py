@@ -102,6 +102,11 @@ if st.session_state.escola_logada:
         with st.expander(f'Deletar Registros da {st.session_state.escola_logada}'):
             df = merenda.list_records(conn, st.session_state.escola_logada)
 
+            # No arquivo do Streamlit, após importar o módulo merenda
+            if st.button("Apagar 'TODO' o histórico!"):
+                merenda.apagar_historico(conn, st.session_state.escola_logada)
+                st.success("O histórico da escola foi apagado.")
+
             if not df.empty:
                 # Adicionando a funcionalidade de exclusão
                 delete_form = st.form(key='delete_form', clear_on_submit=True)

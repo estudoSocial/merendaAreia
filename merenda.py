@@ -91,3 +91,7 @@ def aceitar_entrega(conn, id):
         atualizar_estoque(escola, produto, unidade, quantidade)
         conn.execute('UPDATE entregas_pendentes SET status = ? WHERE id = ?', ('entregue', id))
         conn.commit()
+
+def apagar_historico(conn, escola):
+    conn.execute('DELETE FROM merenda WHERE escola = ?', (escola,))
+    conn.commit()
