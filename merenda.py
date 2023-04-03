@@ -77,12 +77,6 @@ def registrar_entrega_pendente(escola, produto, unidade, quantidade):
     conn.commit()
     conn.close()  # Adicione esta linha para fechar a conexão
 
-def registrar_entrega_pendente(escola, produto, unidade, quantidade):
-    data = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
-    conn.execute('INSERT INTO entregas_pendentes (escola, data, produto, unidade, quantidade, status) VALUES (?, ?, ?, ?, ?, ?)',
-                 (escola, data, produto, unidade, quantidade, 'esperando entrega'))
-    conn.commit()
-    
 def listar_entregas_pendentes(conn, escola):
     cursor = conn.execute('SELECT * FROM entregas_pendentes WHERE escola = ? AND status = ?', (escola, 'esperando entrega'))
     data = cursor.fetchall()

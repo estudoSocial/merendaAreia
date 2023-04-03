@@ -84,19 +84,22 @@ if st.session_state.escola_logada:
                             st.error('Saldo insuficiente no estoque')
                         else:
                             merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                            merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
+                            merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)
                             estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                             st.success("Registro adicionado com sucesso")
+                            st.experimental_rerun()  # Adicione esta linha
                     else:
                         merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                        merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
+                        merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)
                         estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                         st.success("Registro adicionado com sucesso")
+                        st.experimental_rerun()  # Adicione esta linha
                 else:
                     merenda.registrar(conn, st.session_state.escola_logada, produto, unidade, quantidade, procedimento)
-                    merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)  # Adicione esta linha
+                    merenda.atualizar_estoque(conn, st.session_state.escola_logada, produto, procedimento, quantidade)
                     estoque_df = merenda.estoque_atual(conn, st.session_state.escola_logada)
                     st.success("Registro adicionado com sucesso")
+                    st.experimental_rerun()  # Adicione esta linha
 
         with st.expander(f'Deletar Registros da {st.session_state.escola_logada}'):
             df = merenda.list_records(conn, st.session_state.escola_logada)
