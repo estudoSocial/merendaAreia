@@ -57,9 +57,9 @@ def atualizar_estoque(conn, escola, produto, procedimento, quantidade):
         estoque_atual -= quantidade
     # Atualizar o estoque no banco de dados (supondo que você tenha uma tabela separada para armazenar o estoque)
     if resultado:
-        cursor.execute("UPDATE estoque SET quantidade=? WHERE escola=? AND produto=?", (estoque_atual, escola, produto))
+        cursor.execute("UPDATE merenda SET quantidade=? WHERE escola=? AND produto=?", (estoque_atual, escola, produto))
     else:
-        cursor.execute("INSERT INTO estoque (escola, produto, quantidade) VALUES (?, ?, ?)", (escola, produto, estoque_atual))
+        cursor.execute("INSERT INTO merenda (escola, produto, quantidade) VALUES (?, ?, ?)", (escola, produto, estoque_atual))
     conn.commit()
 
 def produtos_em_estoque(conn, escola):
